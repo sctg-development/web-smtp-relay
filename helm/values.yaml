@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: yourdockerhubusername/web-smtp-relay
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+config:
+  users:
+    admin: "$2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq"
+  smtp:
+    host: smtp.example.com
+    port: 587
+    username: your_username
+    password: your_password
+  port: 8080

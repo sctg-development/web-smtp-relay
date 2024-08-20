@@ -1,0 +1,10 @@
+users:
+  admin: $2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq
+
+smtp:
+  host: smtp.example.com
+  port: 587
+  username: your_username
+  password: your_password
+
+port: 8080
