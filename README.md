@@ -81,7 +81,7 @@ The project includes a Dockerfile and GitHub Actions workflow for building and p
 To run the application using Docker:
 
 ```bash
-docker run -p 8080:8080 -v /path/to/your/config.yaml:/app/config.yaml yourdockerhubusername/web-smtp-relay:latest
+docker run -p 8080:8080 -v /path/to/your/config.yaml:/app/config.yaml sctg/web-smtp-relay:latest
 ```
 
 ## License
