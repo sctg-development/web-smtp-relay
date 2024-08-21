@@ -10,6 +10,33 @@ Web-SMTP Relay is a simple Go application that receives email details via an HTT
 - Flexible configuration through YAML file, environment variables, and command-line flags
 - Docker support with multi-architecture builds
 
+## Table of Contents
+
+- [Web-SMTP Relay](#web-smtp-relay)
+  - [Features](#features)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+    - [config.yaml](#configyaml)
+    - [Environment Variables](#environment-variables)
+    - [Command-line Flags](#command-line-flags)
+  - [Usage](#usage)
+  - [Docker](#docker)
+  - [Helm Chart](#helm-chart)
+    - [Prerequisites](#prerequisites)
+    - [Installing the Chart](#installing-the-chart)
+    - [Customizing the Chart](#customizing-the-chart)
+      - [Customizing values.yaml](#customizing-valuesyaml)
+      - [Using command-line parameters](#using-command-line-parameters)
+    - [Configuration Options](#configuration-options)
+    - [Updating the Chart](#updating-the-chart)
+    - [Uninstalling the Chart](#uninstalling-the-chart)
+    - [Note on Secrets](#note-on-secrets)
+  - [License](#license)
+    - [Key points of the AGPLv3](#key-points-of-the-agplv3)
+  - [Contributing](#contributing)
+  - [Support](#support)
+
 ## Installation
 
 1. Clone the repository:
@@ -83,6 +110,114 @@ To run the application using Docker:
 ```bash
 docker run -p 8080:8080 -v /path/to/your/config.yaml:/app/config.yaml sctg/web-smtp-relay:latest
 ```
+
+## Helm Chart
+
+This project includes a Helm chart for easy deployment to Kubernetes clusters. The chart creates a Deployment, Service, and ConfigMap for the Web-SMTP Relay application.
+
+### Prerequisites
+
+- Kubernetes cluster
+- Helm 3.x installed
+
+### Installing the Chart
+
+1. Clone the repository or download the Helm chart files.
+
+2. Navigate to the chart directory:
+
+   ```bash
+   cd web-smtp-relay
+   ```
+
+3. Install the chart with the release name `my-web-smtp-relay`:
+
+   ```bash
+   helm install my-web-smtp-relay .
+   ```
+
+### Customizing the Chart
+
+You can customize the chart by modifying the `values.yaml` file or by passing values on the command line.
+
+#### Customizing values.yaml
+
+Edit the `values.yaml` file to change default values. For example:
+
+```yaml
+replicaCount: 2
+
+image:
+  repository: yourdockerhubusername/web-smtp-relay
+  tag: "1.0.1"
+
+config:
+  users:
+    admin: "$2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq"
+    newuser: "$2a$10$newuserhashhere"
+  smtp:
+    host: smtp.mycompany.com
+    port: 587
+    username: myuser
+    password: mypassword
+  port: 8080
+  
+ingress:
+  enabled: false
+  host: example.com
+  annotations: {}
+  clusterIssuer: "cert-manager"
+```
+
+#### Using command-line parameters
+
+You can override values when installing or upgrading the chart:
+
+```bash
+helm install my-web-smtp-relay . \
+  --set replicaCount=3 \
+  --set config.smtp.host=smtp.newhost.com \
+  --set config.smtp.username=newuser \
+  --set config.smtp.password=newpassword
+```
+
+### Configuration Options
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `replicaCount` | Number of replicas for the deployment | `1` |
+| `image.repository` | Docker image repository | `yourdockerhubusername/web-smtp-relay` |
+| `image.tag` | Docker image tag | `"latest"` |
+| `image.pullPolicy` | Image pull policy | `IfNotPresent` |
+| `service.type` | Kubernetes service type | `ClusterIP` |
+| `service.port` | Kubernetes service port | `8080` |
+| `config.users` | Map of username to bcrypt hashed passwords | See `values.yaml` |
+| `config.smtp.host` | SMTP server hostname | `smtp.example.com` |
+| `config.smtp.port` | SMTP server port | `587` |
+| `config.smtp.username` | SMTP username | `your_username` |
+| `config.smtp.password` | SMTP password | `your_password` |
+| `config.port` | Application listening port | `8080` |
+| `resources` | CPU/Memory resource requests/limits | See `values.yaml` |
+
+### Updating the Chart
+
+To update the chart with new values:
+
+```bash
+helm upgrade my-web-smtp-relay . --reuse-values --set config.smtp.host=smtp.newhost.com
+```
+
+### Uninstalling the Chart
+
+To uninstall/delete the `my-web-smtp-relay` deployment:
+
+```bash
+helm uninstall my-web-smtp-relay
+```
+
+### Note on Secrets
+
+For production use, it's recommended to use Kubernetes Secrets for sensitive information like SMTP credentials and user passwords. You can create a secret separately and reference it in the Helm chart. This example uses ConfigMap for simplicity, but for real-world scenarios, consider using Secrets for better security.
 
 ## License
 
