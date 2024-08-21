@@ -148,8 +148,8 @@ Edit the `values.yaml` file to change default values. For example:
 replicaCount: 2
 
 image:
-  repository: yourdockerhubusername/web-smtp-relay
-  tag: "1.0.1"
+  repository: sctg/web-smtp-relay
+  tag: "1.0.0"
 
 config:
   users:
@@ -163,8 +163,8 @@ config:
   port: 8080
   
 ingress:
-  enabled: false
-  host: example.com
+  enabled: true
+  host: web-smtp-relay.mycompany.com
   annotations: {}
   clusterIssuer: "cert-manager"
 ```
