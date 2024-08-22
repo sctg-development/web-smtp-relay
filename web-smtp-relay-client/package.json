@@ -9,6 +9,16 @@
     "url": "git+https://github.com/sctg-development/web-smtp-relay"
   },
     "private": false,
+    "licenses": [
+      {
+        "type": "AGPL-3.0",
+        "url": "https://www.gnu.org/licenses/agpl-3.0.html"
+      }
+    ],
+    "publishConfig": {
+      "access": "public"
+    },
+    "tag": "latest",
     "scripts": {
       "build": "tsc",
         "test": "echo \"Error: no test specified\" && exit 0",
