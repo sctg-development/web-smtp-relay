@@ -7,7 +7,9 @@
     "private": false,
     "scripts": {
       "build": "tsc",
-      "prepublishOnly": "npm run build"
+        "test": "echo \"Error: no test specified\" && exit 0",
+      "prepublishOnly": "npm run build",
+      "publish": "npm publish"
     },
     "keywords": ["smtp", "relay", "client"],
     "author": "Ronan LE MEILLAT",

@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: 20
       - run: cd web-smtp-relay-client
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+      - run: cd web-smtp-relay-client && npm ci
+      - run: cd web-smtp-relay-client && npm run build
+      - run: cd web-smtp-relay-client && npm test
 
   publish-npm:
     needs: build
@@ -30,8 +30,8 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: cd web-smtp-relay-client
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish
+      - run: cd web-smtp-relay-client && npm ci
+      - run: cd web-smtp-relay-client && npm run build
+      - run: cd web-smtp-relay-client && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPMJS_TOKEN}}
