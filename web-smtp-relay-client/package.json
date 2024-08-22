@@ -1,0 +1,24 @@
+{
+    "name": "@sctg/web-smtp-relay-client",
+    "version": "1.0.0",
+    "description": "A simple client for the web-smtp-relay server",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "private": false,
+    "scripts": {
+      "build": "tsc",
+      "prepublishOnly": "npm run build"
+    },
+    "keywords": ["smtp", "relay", "client"],
+    "author": "Ronan LE MEILLAT",
+    "license": "AGPL-3.0",
+    "devDependencies": {
+      "typescript": "^5.5.4",
+      "@types/node": "^20",
+      "@babel/parser": "^7.25.4",
+      "@babel/types":"^7.25.4"
+    },
+    "files": [
+      "dist/**/*"
+    ]
+  }
