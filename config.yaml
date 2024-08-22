@@ -1,5 +1,6 @@
 users:
-  admin: $2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq
+  admin: $2y$12$2Rr0ZTQkfR08gxEDaT0DnukqKcITrjTnnV4cNwE23cEdMv1YSIHSK # admin123
+  # generated with `htpasswd -nbB -C 12 user admin123 | awk -F: '{print $2}'`
 
 smtp:
   host: smtp.example.com

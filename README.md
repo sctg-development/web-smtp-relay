@@ -32,6 +32,7 @@ Web-SMTP Relay is a simple Go application that receives email details via an HTT
     - [Updating the Chart](#updating-the-chart)
     - [Uninstalling the Chart](#uninstalling-the-chart)
     - [Note on Secrets](#note-on-secrets)
+  - [Tests](#tests)
   - [License](#license)
     - [Key points of the AGPLv3](#key-points-of-the-agplv3)
   - [Contributing](#contributing)
@@ -66,7 +67,7 @@ smtp:
   host: smtp.example.com
   port: 587
   username: your_username
-  password: your_password
+  password: your_password # can be generated with `htpasswd -nbB -C 12 user realpassword | awk -F: '{print $2}'`
 
 port: 8080
 ```
@@ -122,15 +123,30 @@ This project includes a Helm chart for easy deployment to Kubernetes clusters. T
 
 ### Installing the Chart
 
-1. Clone the repository or download the Helm chart files.
+1. If you don't want to install the chart you can use our public Helm repository:
 
-2. Navigate to the chart directory:
+   ```bash
+
+  helm repo add highcanfly <https://helm-repo.highcanfly.club/>
+  helm repo update highcanfly
+
+   ```
+
+   Then install the chart:
+
+   ```bash
+   helm upgrade --install --create-namespace --namespace web-smtp-relay web-smtp-relay highcanfly/web-smtp-relay --values values.yaml
+   ```
+
+2. Clone the repository or download the Helm chart files.
+
+3. Navigate to the chart directory:
 
    ```bash
    cd web-smtp-relay
    ```
 
-3. Install the chart with the release name `my-web-smtp-relay`:
+4. Install the chart with the release name `my-web-smtp-relay`:
 
    ```bash
    helm install my-web-smtp-relay .
@@ -218,6 +234,14 @@ helm uninstall my-web-smtp-relay
 ### Note on Secrets
 
 For production use, it's recommended to use Kubernetes Secrets for sensitive information like SMTP credentials and user passwords. You can create a secret separately and reference it in the Helm chart. This example uses ConfigMap for simplicity, but for real-world scenarios, consider using Secrets for better security.
+
+## Tests
+
+To run tests, configure the config.yaml file, launch the server and use the following command:
+
+```bash
+DESTINATION="youremail@example.com" tests/external_tests.sh
+```
 
 ## License
 

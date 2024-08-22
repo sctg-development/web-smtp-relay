@@ -3,6 +3,8 @@
 package auth
 
 import (
+	"log"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -10,8 +12,13 @@ import (
 func Authenticate(username, password string, users map[string]string) bool {
 	hashedPassword, ok := users[username]
 	if !ok {
+		log.Printf("User %s not found", username)
 		return false
 	}
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+	if err != nil {
+		log.Printf("Authentication failed for user %s", username)
+		return false
+	}
 	return err == nil
 }

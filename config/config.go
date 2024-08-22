@@ -3,6 +3,7 @@
 package config
 
 import (
+	"log"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -28,6 +29,7 @@ func Load(configFile string) (*Config, error) {
 	if configFile == "" {
 		configFile = "config.yaml"
 	}
+	log.Printf("Loading config from %s", configFile)
 
 	config := &Config{}
 	data, err := os.ReadFile(configFile)

@@ -4,12 +4,31 @@ package mail
 
 import (
 	"fmt"
+	"log"
 	"net/smtp"
 	"web-smtp-relay/config"
 )
 
 // SendMail sends an email using the provided SMTP configuration.
 func SendMail(config config.SMTPConfig, subject, body string, destinations []string) error {
+	if len(destinations) == 0 {
+		log.Println("No destinations provided")
+		return fmt.Errorf("no destinations provided")
+	}
+	for _, dest := range destinations {
+		if dest == "" {
+			log.Println("Empty destination provided")
+			return fmt.Errorf("empty destination provided")
+		}
+	}
+	if subject == "" {
+		log.Println("No subject provided")
+		return fmt.Errorf("no subject provided")
+	}
+	if body == "" {
+		log.Println("No body provided")
+		return fmt.Errorf("no body provided")
+	}
 	auth := smtp.PlainAuth("", config.Username, config.Password, config.Host)
 
 	msg := fmt.Sprintf("To: %s\r\nSubject: %s\r\n\r\n%s", destinations[0], subject, body)

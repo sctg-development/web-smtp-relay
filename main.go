@@ -3,6 +3,7 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -12,6 +13,9 @@ import (
 	"web-smtp-relay/config"
 	"web-smtp-relay/mail"
 )
+
+//go:embed not-found.html
+var notFoundHTML []byte
 
 type Message struct {
 	Subject      string   `json:"subject"`
@@ -54,17 +58,27 @@ func main() {
 		err := json.NewDecoder(r.Body).Decode(&msg)
 		if err != nil {
 			http.Error(w, "Invalid request body", http.StatusBadRequest)
+			log.Printf("Error decoding request body: %v", err)
 			return
 		}
 
 		err = mail.SendMail(cfg.SMTP, msg.Subject, msg.Body, msg.Destinations)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error sending email: %v", err), http.StatusInternalServerError)
+			log.Printf("Error sending email: %v", err)
 			return
 		}
 
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Email sent successfully"))
+	})
+
+	// If user hits any other endpoint, return a 404 error with the content of the file not-found.html
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Not found: %s, IP: %s", r.URL.Path, r.RemoteAddr)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusNotFound)
+		w.Write(notFoundHTML)
 	})
 
 	log.Printf("Server starting on :%s", cfg.Port)

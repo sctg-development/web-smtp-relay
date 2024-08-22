@@ -29,3 +29,5 @@ Thumbs.db
 
 web-smtp
 web-smtp-relay
+
+config-local.yaml
