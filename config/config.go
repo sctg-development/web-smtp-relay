@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Ronan LE MEILLAT
+// Copyright (c) 2022-2024 Ronan LE MEILLAT
 // This program is licensed under the AGPLv3 license.
 package config
 

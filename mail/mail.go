@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Ronan LE MEILLAT
+// Copyright (c) 2022-2024 Ronan LE MEILLAT
 // This program is licensed under the AGPLv3 license.
 package mail
 
@@ -8,6 +8,7 @@ import (
 	"web-smtp-relay/config"
 )
 
+// SendMail sends an email using the provided SMTP configuration.
 func SendMail(config config.SMTPConfig, subject, body string, destinations []string) error {
 	auth := smtp.PlainAuth("", config.Username, config.Password, config.Host)
 
