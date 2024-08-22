@@ -4,6 +4,10 @@
     "description": "A simple client for the web-smtp-relay server",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sctg-development/web-smtp-relay"
+  },
     "private": false,
     "scripts": {
       "build": "tsc",
