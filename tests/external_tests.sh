@@ -2,14 +2,13 @@
 # Copyright (c) 2024, Ronan LE MEILLAT
 # This program is licensed under the AGPLv3 license.
 
-# Configuration
-HOST="localhost"
-PORT="8080"
-USERNAME="admin"
-PASSWORD="admin123"
-ENDPOINT="/send"
-
-#if variable DESTINATION is not set, set it to default value
+#Configuration
+SCHEME=${SCHEME:-"http"}
+HOST=${HOST:-"localhost"}
+PORT=${PORT:-"8080"}
+USER=${USER:-"admin"}
+PASSWORD=${PASSWORD:-"admin123"}
+ENDPOINT=${ENDPOINT:-"/send"}
 DESTINATION=${DESTINATION:-"test@example.com"}
 # Test function
 test_api() {
@@ -26,7 +25,7 @@ test_api() {
         -H "Content-Type: application/json" \
         -H "Authorization: Basic $(echo -n $user:$password | base64)" \
         -d "$data" \
-        "http://$HOST:$PORT$ENDPOINT")
+        "$SCHEME://$HOST:$PORT$ENDPOINT")
 
     if [ "$response" -eq "$expected_status" ]; then
         echo "Test passed: $test_name"
@@ -37,11 +36,11 @@ test_api() {
 }
 
 # Test cases
-test_api 'Valid request' 200 $USERNAME $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}"
-test_api 'Missing subject' 500 $USERNAME $PASSWORD "{\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}"
-test_api 'Missing body' 500 $USERNAME $PASSWORD "{\"subject\":\"Test Subject\",\"destinations\":[\"$DESTINATION\"]}"
-test_api 'Missing destinations' 500 $USERNAME $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\"}"
-test_api 'Invalid JSON' 400 $USERNAME $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"}"
-test_api 'Unauthorized' 401 $USERNAME fake "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}" # This test will fail due to invalid credentials
+test_api 'Valid request' 200 $USER $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}"
+test_api 'Missing subject' 500 $USER $PASSWORD "{\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}"
+test_api 'Missing body' 500 $USER $PASSWORD "{\"subject\":\"Test Subject\",\"destinations\":[\"$DESTINATION\"]}"
+test_api 'Missing destinations' 500 $USER $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\"}"
+test_api 'Invalid JSON' 400 $USER $PASSWORD "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"}"
+test_api 'Unauthorized' 401 $USER fake "{\"subject\":\"Test Subject\",\"body\":\"Test Body\",\"destinations\":[\"$DESTINATION\"]}" # This test will fail due to invalid credentials
 
 echo "External tests completed"

@@ -243,6 +243,12 @@ To run tests, configure the config.yaml file, launch the server and use the foll
 DESTINATION="youremail@example.com" tests/external_tests.sh
 ```
 
+or for a more realistic test:
+
+```bash
+SCHEME=https HOST=web-smtp-relay.example.com PORT=443 USER=myuser PASSWORD=user_password DESTINATION=myrealaddress@gmail.com tests/external_tests
+```
+
 ## License
 
 This project is licensed under the GNU Affero General Public License v3.0 (AGPLv3).
