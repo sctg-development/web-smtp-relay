@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
         "target": "esnext",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
@@ -18,5 +19,8 @@
     "exclude": [
         "node_modules",
         "**/__tests__/*"
+    ],
+    "types": [
+        "@cloudflare/workers-types"
     ]
 }
