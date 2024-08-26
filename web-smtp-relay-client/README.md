@@ -2,6 +2,17 @@
 
 A simple client for the web-smtp-relay server.
 
+## Table of Contents
+
+- [@sctg/web-smtp-relay-client](#sctgweb-smtp-relay-client)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Cloudflare Pages client and serverless functions](#cloudflare-pages-client-and-serverless-functions)
+    - [Client-side (Single Page Application)](#client-side-single-page-application)
+    - [Server-side (Cloudflare Pages Serverless Function)](#server-side-cloudflare-pages-serverless-function)
+  - [License](#license)
+
 ## Installation
 
 ```bash
