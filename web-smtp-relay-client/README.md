@@ -104,7 +104,9 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 Make sure to set the following environment variables for the server-side function:
 
 - `HCAPTCHA_SECRET`: Your hCaptcha secret key
-- `WEB_SMTP_RELAY_HOST`: The URL of your web-smtp-relay service
+- `WEB_SMTP_RELAY_SCHEME`: The scheme of your web-smtp-relay service (`http` or `https`)
+- `WEB_SMTP_RELAY_HOST`: The hostname of your web-smtp-relay service
+- `WEB_SMTP_RELAY_PORT`: The port of your web-smtp-relay service
 - `WEB_SMTP_RELAY_USERNAME`: Username for web-smtp-relay authentication
 - `WEB_SMTP_RELAY_PASSWORD`: Password for web-smtp-relay authentication
 
