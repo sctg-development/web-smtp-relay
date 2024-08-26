@@ -1,5 +1,5 @@
-import { cfSendEmailWithCaptcha, EmailMessage, WebSMTPRelayConfig } from '.';
-import { PagesFunction, Response, EventContext } from '@cloudflare/workers-types';
+import { cfSendEmailWithCaptcha, EmailMessage, WebSMTPRelayConfig } from '@sctg/web-smtp-relay-client';
+import { PagesFunction, Response } from '@cloudflare/workers-types';
 interface Env {
     HCAPTCHA_SECRET: string;
     WEB_SMTP_RELAY_SCHEME: string;
