@@ -175,17 +175,31 @@ replicaCount: 2
 
 image:
   repository: sctg/web-smtp-relay
-  tag: "1.0.0"
+  tag: "1.2.0"
 
 config:
   users:
-    admin: "$2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq"
-    newuser: "$2a$10$newuserhashhere"
+    admin: 
+      password: $2y$12$2Rr0ZTQkfR08gxEDaT0DnukqKcITrjTnnV4cNwE23cEdMv1YSIHSK # admin123
+      # generated with `htpasswd -nbB -C 12 user admin123 | awk -F: '{print $2}'`
+      smtp:
+        # per user smtp configuration
+        host: smtp-for-admin.example.com
+        port: 587
+        username: your_username_specific_for_admin
+        password: your_password_specific_for_admin
+    user1:
+      password: $2y$12$viL9Crn/J7PXuEEHsQOXmuJaVE9jCs1AJqBucL.EN9sAyLE1qkzB6 # user1123
+      # generated with `htpasswd -nbB -C 12 user user1123
+      # no smtp configuration for user1 so it will use the default smtp configuration
+
   smtp:
-    host: smtp.mycompany.com
+    # default smtp configuration
+    host: smtp.example.com
     port: 587
-    username: myuser
-    password: mypassword
+    username: your_username
+    password: your_password
+
   port: 8080
   
 ingress:
