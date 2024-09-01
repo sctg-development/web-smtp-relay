@@ -8,7 +8,15 @@ data:
   config.yaml: |
     users:
       {{- range $key, $value := .Values.config.users }}
-      {{ $key }}: {{ $value }}
+      {{ $key }}:
+        password: {{ $value.password }}
+        {{- if $value.smtp }}
+        smtp:
+          host: {{ $value.smtp.host }}
+          port: {{ $value.smtp.port }}
+          username: {{ $value.smtp.username }}
+          password: {{ $value.smtp.password }}
+        {{- end }}
       {{- end }}
 
     smtp:
