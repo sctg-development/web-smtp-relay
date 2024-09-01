@@ -62,7 +62,11 @@ func main() {
 			return
 		}
 
-		err = mail.SendMail(cfg.SMTP, msg.Subject, msg.Body, msg.Destinations)
+		if cfg.Users[username].SMTP != nil {
+			cfg.SMTP = *cfg.Users[username].SMTP
+		}
+
+		err = mail.SendMail(username, cfg.SMTP, msg.Subject, msg.Body, msg.Destinations)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error sending email: %v", err), http.StatusInternalServerError)
 			log.Printf("Error sending email: %v", err)

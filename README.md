@@ -6,7 +6,7 @@ Web-SMTP Relay is a simple Go application that receives email details via an HTT
 
 - Receive email details (subject, body, and destinations) via HTTP POST
 - Basic authentication for secure access
-- Configurable SMTP relay settings
+- Configurable SMTP relay settings (default and per-user)
 - Flexible configuration through YAML file, environment variables, and command-line flags
 - Docker support with multi-architecture builds
 
@@ -61,13 +61,23 @@ The application can be configured using a YAML file, environment variables, and 
 
 ```yaml
 users:
-  admin: $2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq
+  admin: 
+    password: $2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq
+  # can be generated with `htpasswd -nbB -C 12 user realpassword | awk -F: '{print $2}'`
+  newuser: 
+    password: $2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq
+    smtp:
+      # per user smtp settings
+      host: smtp.example.com
+      port: 587
+      username: your_username
+      password: your_password
 
 smtp:
   host: smtp.example.com
   port: 587
   username: your_username
-  password: your_password # can be generated with `htpasswd -nbB -C 12 user realpassword | awk -F: '{print $2}'`
+  password: your_password
 
 port: 8080
 ```

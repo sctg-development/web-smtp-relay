@@ -4,6 +4,6 @@ description: A Helm chart for Web-SMTP Relay
 sources:
   - https://github.com/sctg-development/web-smtp-relay
 type: application
-version: 0.1.0
-appVersion: "1.1.0"
+version: 0.2.0
+appVersion: "1.2.0"
 icon: https://avatars.githubusercontent.com/u/165936401?v=4

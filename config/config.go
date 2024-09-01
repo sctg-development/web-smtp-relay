@@ -10,9 +10,14 @@ import (
 )
 
 type Config struct {
-	Users map[string]string `yaml:"users"`
-	SMTP  SMTPConfig        `yaml:"smtp"`
-	Port  string            `yaml:"port"`
+	Users map[string]User `yaml:"users"`
+	SMTP  SMTPConfig      `yaml:"smtp"`
+	Port  string          `yaml:"port"`
+}
+
+type User struct {
+	Password string      `yaml:"password"`
+	SMTP     *SMTPConfig `yaml:"smtp,omitempty"`
 }
 
 type SMTPConfig struct {

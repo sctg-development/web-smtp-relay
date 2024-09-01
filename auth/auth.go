@@ -4,14 +4,15 @@ package auth
 
 import (
 	"log"
+	"web-smtp-relay/config"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 // Authenticate checks if the provided username and password are valid.
-func Authenticate(username, password string, users map[string]string) bool {
-	hashedPassword, ok := users[username]
-	if !ok {
+func Authenticate(username, password string, users map[string]config.User) bool {
+	hashedPassword := users[username].Password
+	if hashedPassword == "" {
 		log.Printf("User %s not found", username)
 		return false
 	}

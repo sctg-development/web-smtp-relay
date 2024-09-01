@@ -19,7 +19,8 @@ resources:
 
 config:
   users:
-    admin: "$2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq"
+    admin: 
+      password: "$2a$10$XOPbrlUPQdwdJUpSrIF6X.LbE14qsMmKGhM1A8W9iqDuy0Bx8KzWq"
   smtp:
     host: smtp.example.com
     port: 587

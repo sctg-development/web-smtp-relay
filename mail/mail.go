@@ -10,7 +10,7 @@ import (
 )
 
 // SendMail sends an email using the provided SMTP configuration.
-func SendMail(config config.SMTPConfig, subject, body string, destinations []string) error {
+func SendMail(username string, config config.SMTPConfig, subject, body string, destinations []string) error {
 	if len(destinations) == 0 {
 		log.Println("No destinations provided")
 		return fmt.Errorf("no destinations provided")
@@ -32,6 +32,8 @@ func SendMail(config config.SMTPConfig, subject, body string, destinations []str
 	auth := smtp.PlainAuth("", config.Username, config.Password, config.Host)
 
 	msg := fmt.Sprintf("To: %s\r\nSubject: %s\r\n\r\n%s", destinations[0], subject, body)
+
+	log.Printf("Sending email for %s to %s with subject: %s", username, destinations[0], subject)
 
 	err := smtp.SendMail(
 		fmt.Sprintf("%s:%d", config.Host, config.Port),
